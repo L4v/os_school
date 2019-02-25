@@ -22,12 +22,12 @@ bool comp(int a, int b){
 
 vector<int> min(const vector<int>& a, const vector<int>& b){
     vector<int> ret_vector, ta, tb;
+
     ta = a;
     tb = b;
-    sort(ta.begin(), ta.end(), comp);
-    sort(tb.begin(), tb.end(), comp);
-    ret_vector.push_back(ta.front());
-    ret_vector.push_back(tb.front());
+    auto j = tb.begin();
+    for(auto i = ta.begin(); i != ta.end(); i++, j++)
+        ret_vector.push_back(*i < *j ? *i : *j);
     return ret_vector;
 }
 
@@ -47,7 +47,7 @@ int main()
     vector<int> minimalni = min(a, b);
     cout << "MINIMUMI: " << endl;
     for(auto i : minimalni)
-        cout << i;
+        cout << i << " ";
     cout << endl;
 
     return 0;
