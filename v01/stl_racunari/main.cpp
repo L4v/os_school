@@ -19,6 +19,11 @@ int main()
     Racunar r1, r2("hard", "cpu");
     cout << r1.getHDD() << " " << r1.getCPU() << endl;
     cout << r2.getHDD() << " " << r2.getCPU() << endl;
-    u.add(r1);
+    u.add(r1); u.add(r2);
+    list<Racunar> temp_list = u.getRacunari();
+    list<Racunar>::iterator it;
+    for(it = temp_list.begin(); it != temp_list.end(); it++)
+        cout << it->getCPU() << " " << it->getHDD() << endl;
+
     return 0;
 }

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1551081679 source:/home/stud/ra30-2017/_os/v01/recnik2/main.cpp
+	<iostream>
+	<string>
+	<map>
+
