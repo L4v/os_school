@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1551077804 source:/home/stud/ra30-2017/_os/v01/stl_racunari/main.cpp
+	<iostream>
+	"ucionica.h"
+
+1551077820 /home/stud/ra30-2017/_os/v01/stl_racunari/racunar.h
+	<string>
+
+1551077702 /home/stud/ra30-2017/_os/v01/stl_racunari/ucionica.h
+	<list>
+	"racunar.h"
+
