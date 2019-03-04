@@ -17,9 +17,8 @@ Funkcija niti. Funkcija preuzima sledeće parametre:
 void f(ci a_begin, ci a_end, ci b_begin, vector<double>::iterator sum_begin) {
     ci ita, itb;
     vector<double>::iterator it;
-    for(ita = a_begin, itb = b_begin, it = sum_begin; ita != a_end; ita ++, itb ++, sum_begin++){
+    for(ita = a_begin, itb = b_begin, it = sum_begin; ita != a_end; ita ++, itb ++, it++)
         *it = *ita + *itb;
-    }
 }
 
 #endif // SUMA_VEKTORA_H_INCLUDED

@@ -18,8 +18,7 @@ vector<double> sumiraj(vector<double> a, vector<double> b) {
     vector<double>::iterator polasum = sum.begin() + sum.size() / 2;
     thread t1(f, a.begin(), polaa, b.begin(), sum.begin());
     thread t2(f, polaa, a.end(), polab, polasum);
-    t1.join();
-    t2.join();
+    t1.join(); t2.join();
     return sum;
 
 }
