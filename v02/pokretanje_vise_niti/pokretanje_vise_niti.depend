@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1551683626 source:/home/stud/ra30-2017/_os/v02/pokretanje_vise_niti/main.cpp
+	<iostream>
+	<thread>
+

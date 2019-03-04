@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1547673626 source:/home/stud/ra30-2017/_os/v02/suma_vektora_sekvencijalno/main.cpp
+	<iostream>
+	"suma_vektora.h"
+
+1551684204 /home/stud/ra30-2017/_os/v02/suma_vektora_sekvencijalno/suma_vektora.h
+	<vector>
+	<thread>
+
