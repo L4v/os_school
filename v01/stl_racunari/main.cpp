@@ -9,21 +9,57 @@ Zatim je potrebno na konzolu ispisati hard disk i procesor svakog raÄunara u uÄ
 */
 
 #include <iostream>
-#include "ucionica.h"
+#include <string>
+#include <list>
 
 using namespace std;
+class Racunar{
+private:
+    string hdd, cpu;
+public:
+    Racunar(string hdd = "default hdd", string cpu = "default cpu"){
+        this->hdd = hdd;
+        this->cpu = cpu;
+    }
+    void setHDD(string hdd){ this->hdd = hdd; }
+    void setCPU(string cpu){ this->cpu = cpu; }
+    const string getHDD() const { return this->hdd; }
+    const string getCPU() const { return this->cpu; }
+    friend ostream& operator<<(ostream& os, const Racunar& r){
+        return os << "HDD: " << r.hdd << " CPU: " << r.cpu << endl;
+    }
+};
+
+class Ucionica{
+private:
+    list<Racunar> racunari;
+    string naziv;
+    int kvadratura;
+public:
+    Ucionica(string naziv = "default naziv", int kvadratura = 1){
+        this->naziv = naziv;
+        this->kvadratura = kvadratura;
+    }
+    void add(const Racunar& r){ this->racunari.push_back(r); }
+    void remove(){ this->racunari.pop_back(); }
+    friend ostream& operator<<(ostream& os, const Ucionica& u){ os << "Naziv: " << u.naziv << " Kvadratura: " << u.kvadratura << endl
+        << "Racunari: ";
+            for(auto i : u.racunari)
+                os << i << " ";
+            return os;
+    }
+};
+
 
 int main()
 {
-    Ucionica u;
-    Racunar r1, r2("hard", "cpu");
-    cout << r1.getHDD() << " " << r1.getCPU() << endl;
-    cout << r2.getHDD() << " " << r2.getCPU() << endl;
-    u.add(r1); u.add(r2);
-    list<Racunar> temp_list = u.getRacunari();
-    list<Racunar>::iterator it;
-    for(it = temp_list.begin(); it != temp_list.end(); it++)
-        cout << it->getCPU() << " " << it->getHDD() << endl;
+    Ucionica ucionica("Whatever A3-4");
+    Racunar r1, r2("R2 HDD", "R2 CPU"), r3("R3 HDD", "R3 CPU");
+    cout << ucionica;
+    ucionica.add(r1); ucionica.add(r2); ucionica.add(r3);
+    cout << ucionica;
+    ucionica.remove();
+    cout << ucionica;
 
     return 0;
 }

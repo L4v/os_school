@@ -9,27 +9,25 @@ Podrazumeva se: v.size()>=n
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
+
 using namespace std;
 
-bool comp(int x, int y){
-    return x < y;
-}
-
-vector<int> min_n(const vector<int>& v,	int n){
-    vector<int> tmp = v, neue;
-    sort(tmp.begin(), tmp.begin() + n, comp);
-    for(auto i = tmp.begin(); i != tmp.begin() + n; i ++)
-        neue.push_back(*i);
-    return neue;
+vector<int> min(const vector<int>& a, const vector<int>& b, int n){
+    vector<int> tmpa = a, tmpb = b, rez;
+    vector<int>::iterator ita, itb;
+    for(ita = tmpa.begin(), itb = tmpb.begin(); ita != tmpa.begin() + n; ita++, itb ++)
+        rez.push_back(*ita < *itb ? *ita : *itb);
+    return rez;
 }
 
 int main()
 {
-    vector<int> v = {10, 2, 1, 0, 42, 32, 16, 64, 3};
-    cout << "Prva 3 min elem: " << endl;
-    for(auto i : min_n(v, 3))
-        cout << i << " ";
+    vector<int> a = {1, 2, 3, 4, 5},
+                b = {0, 3, 4, 5, 6},
+                mins;
+    mins = min(a, b, 3);
+    cout << "Novi vektori: ";
+    for(auto i : mins) cout << i << " ";
     cout << endl;
     return 0;
 }

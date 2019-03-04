@@ -1,5 +1,6 @@
 # depslib dependency file v1.0
-1551082938 source:/home/stud/ra30-2017/_os/v01/stl_algoritmi_max/main.cpp
+1551626878 source:/home/hk-47/workspace/os/os_school/v01/stl_algoritmi_max/main.cpp
 	<iostream>
 	<list>
+	<algorithm>
 

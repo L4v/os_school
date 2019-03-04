@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1551083996 source:/home/stud/ra30-2017/_os/v01/stl_sort_rastuce/main.cpp
-	<iostream>
-	<vector>
-	<algorithm>
-

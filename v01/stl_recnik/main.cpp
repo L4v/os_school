@@ -14,11 +14,11 @@ using namespace std;
 int main()
 {
     map<string, string> recnik;
-    recnik["black"] = "crna";
     recnik["white"] = "bela";
     recnik["red"] = "crvena";
-    string eng_rec;
-    while(getline(cin, eng_rec))
-        cout << "Prevod: " << recnik[eng_rec] << endl;
+    recnik["black"] = "crna";
+    string rec;
+    while(getline(cin, rec))
+        cout << "Prevod: " << (recnik[rec] != "" ? recnik[rec] : "rec ne postoji.") << endl;
     return 0;
 }

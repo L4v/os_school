@@ -4,20 +4,22 @@ Napraviti program koji prihvata proizvoljan broj linija sa standardnog ulaza i z
 */
 
 #include <iostream>
-#include <string>
 #include <list>
+
 using namespace std;
 
 int main()
 {
-    list<string> linije;
-    string temp;
+    list<string> lines;
+    list<string>::reverse_iterator it;
+    string line;
+    cout << "Poceti unos:" << endl;
+    while(getline(cin, line))
+        lines.push_back(line);
+    cout << "Unesene linije u obrnutom ispisu:" << endl;
+    for(it = lines.rbegin(); it != lines.rend(); it ++)
+        cout << *it << endl;
 
-    while(getline(cin, temp))
-        linije.push_back(temp);
-
-    for(auto it = linije.rbegin(); it != linije.rend(); it++)
-        cout << *it;
 
     return 0;
 }

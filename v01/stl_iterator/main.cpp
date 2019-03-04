@@ -10,11 +10,20 @@ using namespace std;
 
 int main()
 {
-    list<string> linije;
-    string temp;
-    while(getline(cin, temp))
-        linije.push_back(temp);
-    for(auto i : linije)
-        cout << i;
+    list<string> lines;
+    list<string>::iterator it;
+    string line;
+    cout << "Poceti unos:" << endl;
+    while(getline(cin, line))
+        lines.push_back(line);
+
+    cout << "Unesene linije: " << endl;
+    for(auto l : lines)
+        cout << l << endl;
+
+    /*
+    for(it = lines.begin(); it != lines.end(); it ++)
+        cout << *it << endl;
+    */
     return 0;
 }

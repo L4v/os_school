@@ -2,30 +2,18 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="recnik2" />
+		<Option title="stl_recnik" />
 		<Option pch_mode="2" />
-		<Option compiler="c_0x" />
+		<Option compiler="c0x" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/recnik2" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/stl_recnik" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
-				<Option compiler="c_0x" />
+				<Option compiler="c0x" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
-			</Target>
-			<Target title="Release">
-				<Option output="bin/Release/recnik2" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
-				<Option type="1" />
-				<Option compiler="c_0x" />
-				<Compiler>
-					<Add option="-O2" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
@@ -34,10 +22,10 @@
 		</Compiler>
 		<Unit filename="main.cpp" />
 		<Extensions>
-			<code_completion />
 			<envvars />
-			<lib_finder disable_auto="1" />
+			<code_completion />
 			<debugger />
+			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
