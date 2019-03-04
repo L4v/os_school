@@ -33,7 +33,6 @@ double sumiraj(vector<double> v, int n) {
         sum += i;
 
     return sum;
-
 }
 
 #endif // NITI_H_INCLUDED
