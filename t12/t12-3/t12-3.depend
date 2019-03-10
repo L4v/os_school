@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1527595841 source:/home/jigsaw/workspace/os/os_school/t12/t12-3/main.cpp
+	<iostream>
+	"obrtanje.h"
+	"niti.h"
+
+1552240384 /home/jigsaw/workspace/os/os_school/t12/t12-3/obrtanje.h
+	<list>
+
+1552240401 /home/jigsaw/workspace/os/os_school/t12/t12-3/niti.h
+	<thread>
+	<list>
+

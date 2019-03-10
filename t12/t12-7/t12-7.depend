@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1552243382 source:/home/jigsaw/workspace/os/os_school/t12/t12-7/main.cpp
+	<iostream>
+	"logicko_kolo.h"
+	"niti.h"
+
+1552243086 /home/jigsaw/workspace/os/os_school/t12/t12-7/logicko_kolo.h
+	<vector>
+
+1552243413 /home/jigsaw/workspace/os/os_school/t12/t12-7/niti.h
+	<thread>
+	<vector>
+

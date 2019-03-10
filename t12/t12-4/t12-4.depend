@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1527595841 source:/home/jigsaw/workspace/os/os_school/t12/t12-4/main.cpp
+	<iostream>
+	"pretraga.h"
+	"niti.h"
+
+1552241575 /home/jigsaw/workspace/os/os_school/t12/t12-4/pretraga.h
+	<cmath>
+	<vector>
+
+1552241684 /home/jigsaw/workspace/os/os_school/t12/t12-4/niti.h
+	<thread>
+	<vector>
+

@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1527595841 source:/home/jigsaw/workspace/os/os_school/t12/t12-6/main.cpp
+	<iostream>
+	"antonim.h"
+	"niti.h"
+
+1552242567 /home/jigsaw/workspace/os/os_school/t12/t12-6/antonim.h
+	<map>
+	<string>
+
+1552242339 /home/jigsaw/workspace/os/os_school/t12/t12-6/niti.h
+	<thread>
+	<map>
+

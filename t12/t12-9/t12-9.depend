@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1527595841 source:/home/jigsaw/workspace/os/os_school/t12/t12-9/main.cpp
+	<iostream>
+	"obracun.h"
+	"niti.h"
+
+1552244114 /home/jigsaw/workspace/os/os_school/t12/t12-9/obracun.h
+	<string>
+	<map>
+	<list>
+
+1552244171 /home/jigsaw/workspace/os/os_school/t12/t12-9/niti.h
+	<thread>
+

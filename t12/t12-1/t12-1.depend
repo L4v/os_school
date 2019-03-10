@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1527595841 source:/home/jigsaw/workspace/os/os_school/t12/t12-1/main.cpp
+	<iostream>
+	"sabiranje.h"
+	"niti.h"
+
+1552239075 /home/jigsaw/workspace/os/os_school/t12/t12-1/sabiranje.h
+	<vector>
+
+1552239382 /home/jigsaw/workspace/os/os_school/t12/t12-1/niti.h
+	<thread>
+	<vector>
+
