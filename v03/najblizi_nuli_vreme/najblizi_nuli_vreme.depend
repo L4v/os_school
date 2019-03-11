@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1552298001 source:/home/hk-47/workspace/os/os_school/v03/najblizi_nuli_vreme/main.cpp
+	<iostream>
+	<thread>
+	<vector>
+	<cmath>
+

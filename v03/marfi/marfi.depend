@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1552300203 source:/home/hk-47/workspace/os/os_school/v03/marfi/main.cpp
+	<iostream>
+	<thread>
+
