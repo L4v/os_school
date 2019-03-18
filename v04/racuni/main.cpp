@@ -14,6 +14,9 @@ Data funkcija transfer() predstavlja telo niti koje vrše prenos novca. Funkcija
 #define POCETNI_IZNOS 50
 
 using namespace std;
+using namespace chrono;
+
+mutex m;
 
 struct retVal{
     double staro; // Iznos novca na računu pre prenosa
@@ -28,7 +31,14 @@ double racuni[UKUPNO_RACUNA]; // Svaki element niza predstavlja iznos novca na o
 // Nakon skidanja novca sa prvog računa potrebna je jedna sekunda da se novac uplati na drugi račun (trajanje ove operacije simulirati pauziranjem niti).
 // Povratna vrednost funkcije je struktura retVal koja sadrži iznos na prvom računu (izvor) pre i posle transakcije.
 retVal prebaci(int izvor, int cilj, double iznos) {
-	// Implementirati...
+	retVal r;
+	unique_lock<mutex> lock(m);
+	r.staro = racuni[izvor];
+	racuni[izvor] -= iznos;
+	this_thread::sleep_for(milliseconds(1000));
+	racuni[cilj] += iznos;
+	r.novo = racuni[izvor];
+    return r;
 }
 
 

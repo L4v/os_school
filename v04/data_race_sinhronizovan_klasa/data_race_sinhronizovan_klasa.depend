@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1552896572 source:/home/stud/ra30-2017/_os/v04/data_race_sinhronizovan_klasa/main.cpp
+	<iostream>
+	<thread>
+	<mutex>
+
