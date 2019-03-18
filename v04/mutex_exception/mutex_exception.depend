@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1552892895 source:/home/stud/ra30-2017/_os/v04/mutex_exception/main.cpp
+	<iostream>
+	<thread>
+	<mutex>
+
