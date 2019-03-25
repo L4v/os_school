@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1552892097 source:/home/stud/ra30-2017/_os/v04/data_race_sinhronizovan/main.cpp
+1552892255 source:/home/stud/ra30-2017/_os/v04/data_race_sinhronizovan/main.cpp
 	<iostream>
 	<thread>
 	<mutex>
