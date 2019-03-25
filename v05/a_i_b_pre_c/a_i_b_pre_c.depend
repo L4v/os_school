@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1553130502 source:/home/stud/ra30-2017/_os/v05/a_i_b_pre_c/main.cpp
+	<iostream>
+	<thread>
+	<mutex>
+	"koordinator.h"
+
+1553498223 /home/stud/ra30-2017/_os/v05/a_i_b_pre_c/koordinator.h
+	<mutex>
+	<condition_variable>
+

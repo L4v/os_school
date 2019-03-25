@@ -1,6 +1,9 @@
 #ifndef PARKING_H_INCLUDED
 #define PARKING_H_INCLUDED
 
+#include <mutex>
+#include <condition_variable>
+
 #include "automobil.h"
 
 using namespace std;
@@ -8,10 +11,12 @@ using namespace std;
 class Parking {
 private:
     Automobil& automobil;
+    mutex m;
+    int spaces;
+    condition_variable free;
 
 public:
-    Parking(Automobil& a, int kapacitet) : automobil(a) {
-        // Proširiti po potrebi ...
+    Parking(Automobil& a, int kapacitet) : automobil(a), spaces(kapacitet) {
     }
 
     // Metoda koju poziva nit koja simulira kretanje automobila kako bi automobil pokušao da se parkira.
@@ -22,7 +27,13 @@ public:
     // Potrebno je pozvati metodu automobil.ceka kada je parking zauzet i auto ne može da se parkira.
     // Potrebno je pozvati metodu automobil.parkira kada auto uspe da se parkira.
     void udji(int rbr) {
-        // Implementirati ...
+        unique_lock<mutex> lock(m);
+        while(spaces == 0){
+            automobil.ceka(rbr);
+            free.wait(lock);
+        }
+        spaces--;
+        automobil.parkira(rbr);
     }
 
     // Metoda koju poziva nit koja simulira kretanje automobila kada auto izlazi sa parkinga (nakon što je bio parkiran).
@@ -31,8 +42,12 @@ public:
     //
     // Potrebno je pozvati metodu automobil.napusta kada auto napušta parking mesto.
     void izadji(int rbr) {
-        // Implementirati ...
+        unique_lock<mutex> lock(m);
+        spaces++;
+        automobil.napusta(rbr);
+        free.notify_one();
     }
+
 };
 
 #endif // PARKING_H_INCLUDED

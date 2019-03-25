@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1553130502 source:/home/stud/ra30-2017/_os/v05/banka/main.cpp
+	<thread>
+	<vector>
+	"valuta.h"
+	"banka.h"
+	"kredit.h"
+
+1553130502 /home/stud/ra30-2017/_os/v05/banka/valuta.h
+	<string>
+
+1553498964 /home/stud/ra30-2017/_os/v05/banka/banka.h
+	<mutex>
+	<condition_variable>
+	"valuta.h"
+	"kredit.h"
+
+1553130502 /home/stud/ra30-2017/_os/v05/banka/kredit.h
+	<iostream>
+	"valuta.h"
+
