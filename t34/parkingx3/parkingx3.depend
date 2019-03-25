@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1553130502 source:/home/stud/ra30-2017/_os/t34/parkingx3/main.cpp
+	<thread>
+	"parking.h"
+	"automobil.h"
+
+1553503543 /home/stud/ra30-2017/_os/t34/parkingx3/parking.h
+	<mutex>
+	<condition_variable>
+	"automobil.h"
+
+1553130502 /home/stud/ra30-2017/_os/t34/parkingx3/automobil.h
+	<iostream>
+

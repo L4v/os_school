@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1553130502 source:/home/stud/ra30-2017/_os/t34/atletika/main.cpp
+	<thread>
+	"staza.h"
+
+1553502219 /home/stud/ra30-2017/_os/t34/atletika/staza.h
+	<mutex>
+	<condition_variable>
+	"povratna.h"
+	"takmicar.h"
+
+1553130502 /home/stud/ra30-2017/_os/t34/atletika/povratna.h
+
+1553130502 /home/stud/ra30-2017/_os/t34/atletika/takmicar.h
+	<iostream>
+	"povratna.h"
+
