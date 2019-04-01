@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1553130502 source:/home/stud/ra30-2017/_os/t34/racunari/main.cpp
+	<thread>
+	"rc.h"
+
+1554099448 /home/stud/ra30-2017/_os/t34/racunari/rc.h
+	<mutex>
+	<condition_variable>
+	<map>
+	"student.h"
+
+1553130502 /home/stud/ra30-2017/_os/t34/racunari/student.h
+	<iostream>
+

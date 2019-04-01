@@ -1,6 +1,10 @@
 #ifndef RC_H_INCLUDED
 #define RC_H_INCLUDED
 
+#include <mutex>
+#include <condition_variable>
+#include <map>
+
 #include "student.h"
 
 using namespace std;
@@ -10,9 +14,18 @@ using namespace std;
 class RC {
 private:
     Student& student;
+    mutex m;
+    condition_variable free;
+    int racunari; // 0 -> svi zauzeti
+    int br_rac;
+    map<int, int> zauzeti; // niz zauzetih student:racunar
+    map<int, int> slobodni;// racunar:zauzetost
 public:
 	RC(Student& st, int br) : student(st) {
-        // Prosiriti po potrebi ...
+	    this->racunari = br <= MAX ? br : MAX;
+	    for(int i = 0; i < this->racunari; i ++)
+            slobodni[i+1] = 1;
+        this->br_rac = racunari;
     }
 
     // Metoda koju poziva nit koja simulira studenta kako bi student zauzeo mesto za racunarom.
@@ -23,7 +36,22 @@ public:
     // Potrebno je pozvati metodu student.ceka kada su racunari zauzeti i student mora da ceka.
     // Potrebno je pozvati metodu student.zauzeo kada student zauzme racunar.
     int zauzmi(int rbr) {
-        // Implementirati ...
+        unique_lock<mutex> lock(m);
+        while(racunari == 0){
+            student.ceka(rbr);
+            free.wait(lock);
+        }
+        int uzet;
+        for(int i = 1; i <= br_rac; i ++)
+            if(slobodni[i] == 1){
+                uzet = i;
+                break;
+            }
+        zauzeti[rbr] = uzet;
+        slobodni[uzet] = 0;
+        student.zauzeo(rbr, zauzeti[rbr]);
+        racunari --;
+        return zauzeti[rbr];
     }
 
     // Metoda koju poziva nit koja simulira studenta kako bi oslobodio racunar koji je prethodno zauzeo.
@@ -33,7 +61,10 @@ public:
     //
     // Potrebno je pozvati metodu student.oslobodio kada student oslobodi racunar.
     void oslobodi(int rbr, int id_racunara) {
-        // Implementirati ...
+        student.oslobodio(rbr, zauzeti[rbr]);
+        racunari ++;
+        slobodni[zauzeti[rbr]] = 1;
+        free.notify_all();
     }
 };
 

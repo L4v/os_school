@@ -15,11 +15,11 @@ private:
     Klijent& klijent;
     condition_variable free;
     mutex m;
-    int salt; // 0 => zauzeto
+    int salter; // 0 => zauzeto
     int ukupno;
 
 public:
-    Posta(Klijent& kl) : klijent(kl), salt(2), ukupno(0) {
+    Posta(Klijent& kl) : klijent(kl), salter(2), ukupno(0) {
 
     }
 
@@ -33,17 +33,20 @@ public:
     // Potrebno je pozvati metodu klijent.uplacuje kada klijent stupi na salter i vrsi svoje placanje.
     // Potrebno je pozvati metodu klijent.napusta kada klijent zavrsi placanje i napusta salter.
     void uplati(int rbr, int svota) {
-        while(salt == 0){
+        unique_lock<mutex> lock(m);
+        while(salter == 0){
             klijent.ceka(rbr, svota);
             free.wait(lock);
         }
-        klijent.uplacuje(rbr, salt-1, svota * 1000);
-        salt --;
-        this_thread::sleep_for(seconds(svota % 1000 + 1));
-        ukupno += svota * 1000;
-        salt ++;
-        klijent.napusta(rbr, salt-1, ukupno);
-        free.notify_all();
+        salter -= 1;
+        klijent.uplacuje(rbr, salter+1, svota);
+        lock.unlock();
+        this_thread::sleep_for(seconds(1));
+        lock.lock();
+        ukupno += svota;
+        klijent.napusta(rbr, salter+1, ukupno);
+        free.notify_one();
+        salter += 1;
     }
 };
 

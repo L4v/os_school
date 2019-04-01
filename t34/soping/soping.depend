@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1553130502 source:/home/stud/ra30-2017/_os/t34/soping/main.cpp
+	<thread>
+	"prodavnica.h"
+
+1554106378 /home/stud/ra30-2017/_os/t34/soping/prodavnica.h
+	<mutex>
+	<condition_variable>
+	<map>
+	"povratna.h"
+	"kupac.h"
+
+1553130502 /home/stud/ra30-2017/_os/t34/soping/povratna.h
+
+1553130502 /home/stud/ra30-2017/_os/t34/soping/kupac.h
+	<iostream>
+

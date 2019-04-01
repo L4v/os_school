@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1553130502 source:/home/stud/ra30-2017/_os/t34/skladiste/main.cpp
+	<thread>
+	<vector>
+	"skladiste.h"
+
+1554104955 /home/stud/ra30-2017/_os/t34/skladiste/skladiste.h
+	<mutex>
+	<condition_variable>
+	<list>
+	"kamion.h"
+
+1553130502 /home/stud/ra30-2017/_os/t34/skladiste/kamion.h
+	<iostream>
+	<string>
+
