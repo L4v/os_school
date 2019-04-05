@@ -12,13 +12,17 @@ using namespace std;
 class Trzni_centar {
 private:
     mutex m;
-    condition_variable free1, free2;
-    int kasa1, kasa2;
-    int zauzeto1, zauzeto2;
+    condition_variable * free; // uslovna promenljiva za svaku kasu
+    int* red; // Duzina reda na kasi
+    bool* stanje; // false-slobodno | true-zauzeto
     Kupac& kupac;
 public:
-    Trzni_centar(Kupac& k) : kupac(k), zauzeto1(0), zauzeto2(0), kasa1(0), kasa2(0){
-        // Prosiriti po potrebi ...
+    Trzni_centar(Kupac& k) : kupac(k){
+        this->free = new condition_variable[2];
+        this->red = new int[2];
+        this->red[0] = 0; this->red[1] = 0;
+        this->stanje = new bool[2];
+        this->stanje[0] = false; this->stanje[1] = false;
     }
 
     // Metoda koju poziva nit koja simulira kupca kako bi se obavila kupovina.
@@ -32,40 +36,22 @@ public:
     // Potrebno je pozvati metodu kupac.zavrsio kada je kupac zavrsio kupovinu.
     int kupi(int rbr, int broj_artikala) {
         unique_lock<mutex> lock(m);
-        bool prva;
-        if(kasa1 <= kasa2){
-            prva = true;//aaaaaaaaaaaaaaaaaaaaaaaaaaaa
-            kasa1++;
-        }else{
-            prva = false;
-            kasa2++;
+        int kasa = red[0] <= red[1] ? 0 : 1; // Na koju kasu ide kupac
+        while(stanje[kasa]){
+            red[kasa]++;
+            kupac.ceka(rbr, kasa+1);
+            free[kasa].wait(lock);
+            red[kasa]--;
         }
-        while(kasa1 && kasa2){
-            if(kasa1 <= kasa2){
-                kupac.ceka(rbr, 1);
-                kasa2++;
-                free1.wait(lock);
-                kasa1--;
-            }else{
-                kupac.ceka(rbr, 2);
-                kasa2++;
-                free2.wait(lock);
-                kasa2--;
-                prva = false;
-            }
-        }
-        kupac.kupuje(rbr, prva ? 1 : 2, broj_artikala);
+        stanje[kasa] = true;
+        kupac.kupuje(rbr, kasa+1, broj_artikala);
         lock.unlock();
         this_thread::sleep_for(chrono::seconds(broj_artikala));
         lock.lock();
         kupac.zavrsio(rbr);
-        if(prva){
-            free1.notify_one();
-            return 1;
-        }else{
-            free2.notify_one();
-            return 2;
-        }
+        stanje[kasa] = false;
+        free[kasa].notify_one();
+        return kasa+1;
     }
 };
 

@@ -14,3 +14,17 @@
 	<iostream>
 	<string>
 
+1554143117 source:/home/hk-47/workspace/os/os_school/t34/skladiste/main.cpp
+	<thread>
+	<vector>
+	"skladiste.h"
+
+1554494043 /home/hk-47/workspace/os/os_school/t34/skladiste/skladiste.h
+	<mutex>
+	<condition_variable>
+	"kamion.h"
+
+1554143117 /home/hk-47/workspace/os/os_school/t34/skladiste/kamion.h
+	<iostream>
+	<string>
+

@@ -18,8 +18,8 @@ private:
     condition_variable free;
     int racunari; // 0 -> svi zauzeti
     int br_rac;
-    map<int, int> zauzeti; // niz zauzetih student:racunar
-    map<int, int> slobodni;// racunar:zauzetost
+    map<int, int> zauzeti; // mapa student:racunar
+    map<int, int> slobodni;// mapa racunar:zauzetost
 public:
 	RC(Student& st, int br) : student(st) {
 	    this->racunari = br <= MAX ? br : MAX;

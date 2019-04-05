@@ -39,7 +39,7 @@ public:
         }
         automobil.zauzima(rbr);
         taken = 1;
-        ulazi = ulaz == 2 ? 0 : ++ulaz;
+        ulazi = ulaz == 2 ? 0 : ++ulaz;// Ne radi lololo
     }
 
     // Metoda koju poziva nit koja simulira kretanje automobila kada on napusta parking na koji je prethodno usao.

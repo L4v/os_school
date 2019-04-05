@@ -3,7 +3,6 @@
 
 #include <mutex>
 #include <condition_variable>
-#include <list>
 
 #include "kamion.h"
 
@@ -12,14 +11,16 @@ using namespace chrono;
 
 class Skladiste {
 private:
-    mutex m;
-    condition_variable free_zap, free_nezap;
     Kamion& kamion;
-    int skladista;
-    int zap;
+    mutex m;
+    condition_variable* free; // free[0] zapaljivo, free[1] obicno
+    int zapaljiva_roba; // koliko kamiona sa zapaljivom robom ceka
+    bool* stanje;
 public:
-    Skladiste(Kamion& k) : kamion(k), skladista(2), zap(0){
-        // Prosiriti po potrebi ...
+    Skladiste(Kamion& k) : kamion(k), zapaljiva_roba(0){
+        this->free = new condition_variable[2];
+        this->stanje = new bool[2];
+        stanje[0] = false; stanje[1] = false;
     }
 
     // Metoda koju poziva nit koja simulira kretanje kamiona kada on pokusava da istovari robu.
@@ -34,30 +35,26 @@ public:
     // Potrebno je pozvati metodu kamion.odlazi kada je kamion zavrsio istovar i odlazi.
     void istovari(int rbr, int kolicina, bool zapaljivo) {
         unique_lock<mutex> lock(m);
-        while(skladista == 0){
+        while(stanje[0] && stanje[1]){
             kamion.ceka(rbr, kolicina, zapaljivo);
             if(zapaljivo){
-                zap++;
-                free_zap.wait(lock);
-                zap--;
+                zapaljiva_roba++;
+                free[0].wait(lock);
+                zapaljiva_roba--;
             }else{
-                free_nezap.wait(lock);
+                free[1].wait(lock);
             }
         }
-        skladista--;
-        kamion.istovara(rbr, kolicina, zapaljivo, skladista+1);
+        int id_rampe = stanje[0] ? 1 : 0;
+        stanje[id_rampe] = true;
+        kamion.istovara(rbr, kolicina, zapaljivo, id_rampe);
         lock.unlock();
         this_thread::sleep_for(seconds(kolicina));
         lock.lock();
-        skladista++;
         kamion.odlazi(rbr);
-
-        if(zap != 0){
-            free_zap.notify_one();
-        }else{
-            free_nezap.notify_one();
-        }
-
+        stanje[id_rampe] = false;
+        if(zapaljiva_roba) free[0].notify_one();
+        else free[1].notify_one();
     }
 };
 

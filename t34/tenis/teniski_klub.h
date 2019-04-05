@@ -42,8 +42,8 @@ public:
         broj_terena--;
         system_clock::time_point start = system_clock::now();
         ret.pocetak = start;
-        lock.unlock();
         mec.pocinje(broj_meca, na_terenu);
+        lock.unlock();
         this_thread::sleep_for(chrono::seconds(rand()%5 + 1));
         lock.lock();
         ret.trajanje = system_clock::now() - start;
