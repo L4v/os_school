@@ -39,7 +39,9 @@ public:
         }
         takmicar.skakac_skace(rbr);
         taken++;
-        this_thread::sleep_for(milliseconds(1));
+        lock.unlock();
+        this_thread::sleep_for(seconds(1));
+        lock.lock();
         system_clock::time_point end = system_clock::now();
         ret.trajanje = end - start;
         ret.rezultat = rand()%9 + 1;
@@ -67,7 +69,9 @@ public:
         }
         takmicar.bacac_baca(rbr);
         taken++;
-        this_thread::sleep_for(milliseconds(2));
+        lock.unlock();
+        this_thread::sleep_for(seconds(1));
+        lock.lock();
         system_clock::time_point end = system_clock::now();
         ret.trajanje = end - start;
         ret.rezultat = rand()%100 + 1;

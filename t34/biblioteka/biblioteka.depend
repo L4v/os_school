@@ -12,3 +12,16 @@
 1553130502 /home/stud/ra30-2017/_os/t34/biblioteka/primerak.h
 	<iostream>
 
+1554143117 source:/home/hk-47/workspace/os/os_school/t34/biblioteka/main.cpp
+	<iostream>
+	<thread>
+	"biblioteka.h"
+
+1554542783 /home/hk-47/workspace/os/os_school/t34/biblioteka/biblioteka.h
+	<mutex>
+	<condition_variable>
+	"primerak.h"
+
+1554143117 /home/hk-47/workspace/os/os_school/t34/biblioteka/primerak.h
+	<iostream>
+

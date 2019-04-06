@@ -15,3 +15,19 @@
 
 1553130502 /home/stud/ra30-2017/_os/t34/ambulanta/pol.h
 
+1554143117 source:/home/hk-47/workspace/os/os_school/t34/ambulanta/main.cpp
+	<thread>
+	"ambulanta.h"
+
+1554543022 /home/hk-47/workspace/os/os_school/t34/ambulanta/ambulanta.h
+	<mutex>
+	<condition_variable>
+	"student.h"
+
+1554542986 /home/hk-47/workspace/os/os_school/t34/ambulanta/student.h
+	<iostream>
+	<string>
+	"pol.h"
+
+1554143117 /home/hk-47/workspace/os/os_school/t34/ambulanta/pol.h
+

@@ -17,9 +17,10 @@
 	"parking.h"
 	"automobil.h"
 
-1554494794 /home/hk-47/workspace/os/os_school/t34/parkingx3/parking.h
+1554542665 /home/hk-47/workspace/os/os_school/t34/parkingx3/parking.h
 	<mutex>
 	<condition_variable>
+	<map>
 	"automobil.h"
 
 1554143117 /home/hk-47/workspace/os/os_school/t34/parkingx3/automobil.h
