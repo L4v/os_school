@@ -3,6 +3,7 @@
 
 #include <mutex>
 #include <condition_variable>
+#include <map>
 
 #include "automobil.h"
 
@@ -10,13 +11,14 @@ using namespace std;
 
 class Parking {
     Automobil& automobil;
-    int taken; // 0 => slobodno mesto
-    int ulazi;
+    bool zauzet; // false-slobodno | true-zauzeto
+    int ulaz_id; // trenutni ulaz: {0, 1, 2}
+    map<int, int> mesto_id; // automobil:mesto
     mutex m;
     condition_variable free;
 public:
-    Parking(Automobil& a) : automobil(a), taken(0), ulazi(0) {
-        // Prosiriti po potrebi ...
+    Parking(Automobil& a) : automobil(a), zauzet(false), ulaz_id(0) {
+        //this->free = new condition_variable[3];
     }
 
     // Metoda koju poziva nit koja simulira kretanje automobila kada on pokusava da udje na parking.
@@ -29,17 +31,14 @@ public:
     // Potrebno je pozvati metodu automobil.zauzima kada automobil zauzme parking mesto.
     void udji(int rbr, int ulaz) {
         unique_lock<mutex> lock(m);
-        while(taken != 0){
+        mesto_id[rbr] = ulaz;
+        while(zauzet || ulaz != ulaz_id){
             automobil.ceka(rbr, ulaz);
             free.wait(lock);
         }
-        while(ulaz != ulazi){
-            automobil.ceka(rbr, ulaz);
-            free.wait(lock);
-        }
+        zauzet = true;
         automobil.zauzima(rbr);
-        taken = 1;
-        ulazi = ulaz == 2 ? 0 : ++ulaz;
+        ulaz_id = ulaz_id == 2 ? 0 : ++ulaz_id;
     }
 
     // Metoda koju poziva nit koja simulira kretanje automobila kada on napusta parking na koji je prethodno usao.
@@ -50,7 +49,7 @@ public:
     void izadji(int rbr) {
         unique_lock<mutex> lock(m);
         automobil.napusta(rbr);
-        taken = 0;
+        zauzet = false;
         free.notify_all();
     }
 };

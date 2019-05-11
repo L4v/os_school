@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1554143117 source:/home/hk-47/workspace/os/os_school/t34/trzni_centar/main.cpp
+	<thread>
+	"trzni_centar.h"
+
+1554491481 /home/hk-47/workspace/os/os_school/t34/trzni_centar/trzni_centar.h
+	<mutex>
+	<condition_variable>
+	<list>
+	"kupac.h"
+
+1554143117 /home/hk-47/workspace/os/os_school/t34/trzni_centar/kupac.h
+	<iostream>
+

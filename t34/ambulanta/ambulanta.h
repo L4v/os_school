@@ -32,18 +32,18 @@ public:
         unique_lock<mutex> lock(mtx);
         if(p == 0){
             while(m == 0){
-                student.ceka(rbr, p, m);
+                student.ceka(rbr, p);
                 free_m.wait(lock);
             }
             m--;
-            student.ulazi(rbr, p, m);
+            student.ulazi(rbr, p);
         }else{
             while(z == 0){
-                student.ceka(rbr, p, z);
+                student.ceka(rbr, p);
                 free_z.wait(lock);
             }
             z--;
-            student.ulazi(rbr, p, z);
+            student.ulazi(rbr, p);
         }
     }
 
@@ -54,10 +54,10 @@ public:
     void izadji(int rbr, Pol p) {
         if(p == 0){
             m++;
-            free_m.notify_all();
+            free_m.notify_one();
         }else{
             z++;
-            free_z.notify_all();
+            free_z.notify_one();
         }
     }
 };

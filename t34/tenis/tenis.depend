@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1554143117 source:/home/hk-47/workspace/os/os_school/t34/tenis/main.cpp
+	<thread>
+	"teniski_klub.h"
+
+1554144169 /home/hk-47/workspace/os/os_school/t34/tenis/teniski_klub.h
+	<mutex>
+	<condition_variable>
+	<map>
+	"podaci.h"
+	"mec.h"
+
+1554143117 /home/hk-47/workspace/os/os_school/t34/tenis/podaci.h
+
+1554143117 /home/hk-47/workspace/os/os_school/t34/tenis/mec.h
+	<iostream>
+

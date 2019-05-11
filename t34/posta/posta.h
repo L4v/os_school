@@ -18,9 +18,10 @@ private:
     int salt; // 0 => zauzeto
     const int salteri = 2;
     int ukupno;
-
 public:
-    Posta(Klijent& kl) : klijent(kl), salt(2), ukupno(0) {
+    Posta(Klijent& kl) : klijent(kl), ukupno(0) {
+        this->salter = new bool[2];
+        this->salter[0] = false; this->salter[1] = false;
     }
 
     // Metoda koju poziva nit koja simulira klijenta kada on uplacuje neki iznos.
@@ -33,20 +34,21 @@ public:
     // Potrebno je pozvati metodu klijent.uplacuje kada klijent stupi na salter i vrsi svoje placanje.
     // Potrebno je pozvati metodu klijent.napusta kada klijent zavrsi placanje i napusta salter.
     void uplati(int rbr, int svota) {
-        while(salt == 0){
-            unique_lock<mutex> lock(m);
+        unique_lock<mutex> lock(m);
+        while(salter[0] && salter[1]){
             klijent.ceka(rbr, svota);
             free.wait(lock);
         }
-            salt--;
-
-            klijent.uplacuje(rbr, salt, svota);
-            this_thread::sleep_for(seconds(1));
-
-            ukupno += svota;
-            klijent.napusta(rbr, salt, ukupno);
-            salt++;
-            free.notify_all();
+        int id_saltera = salter[0] ? 1 : 0;
+        salter[id_saltera] = true;
+        klijent.uplacuje(rbr, id_saltera+1, svota);
+        lock.unlock();
+        this_thread::sleep_for(seconds(svota));
+        lock.lock();
+        ukupno += svota;
+        klijent.napusta(rbr, id_saltera+1, svota);
+        salter[id_saltera] = false;
+        free.notify_one();
     }
 };
 

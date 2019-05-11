@@ -45,7 +45,7 @@ public:
         unique_lock<mutex> lock(m);
         books++;
         primerak.vracen(rbr);
-        free.notify_all();
+        free.notify_one();
     }
 };
 

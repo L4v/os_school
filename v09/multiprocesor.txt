@@ -1,0 +1,17 @@
+/*
+// Napisati konkurentni program koji modeluje pristupanje više procesa deljenoj memoriji.
+//
+// Deljena memorija je predstavljena klasom Memorija. Prilikom instanciranja se zadaje veličina memorije (ukupan broj lokacija koje postoje u memoriji). Upis vrednosti u memoriju se obavlja pozivom operacije Memorija.pisi, a čitanje pozivom operacije Memorija.citaj. I čitanje i upis svake vrednosti traje po 1 sekundu. Ove dve metode kao parametar prihvataju memorijsku lokaciju (ona je izražena u bajtima/karakterima). Interno, sve lokacije koji čine memoriju mogu se predstaviti karakterima (tip char).
+//
+// Iako metode Memorija.pisi i Memorija.citaj memoriju adresiraju po lokacijama, interno pristup pojedinačnoj lokaciji u klasi Memorija pogađa celu memorijsku reč kojoj lokacija pripada. Veličina memorijske reči je 4 bajta, tako da npr ako je zahtevan pristup lokacijama 0 i 3, to je pristup prvoj memorijskoj reči kojoj obe ove lokacije pripadaju.
+//
+// Tokom upisa u memorijsku lokaciju ekskluzivno se zaključava cela memorijska reč kojoj ta lokacija (bajt) pripada. Dakle, operacija upisa ne dozvoljava da paralelno sa njom teče bilo koja druga operacija (čitanje ili neki drugi upis u istu memorijsku reč).
+//
+// Tokom čitanja memorijske lokacije reč kojoj ta lokacija (bajt) pripada se može istovremeno čitati iz drugih niti.
+//
+// Treba omogućiti istovremeno pristupanje memorijskim lokacijama koje ne pripadaju istoj reči.
+//
+// Ako istovremeno postoje i procesi koji žele da čitaju i procesi koji žele da pišu u istu memorijsku reč, prvo treba procesi koji čitaju da dobiju pristup.
+//
+// Implementirati označene metode, konstruktor i dodati privatne članove u klasu Memorija (fajl memorija.h).
+*/
