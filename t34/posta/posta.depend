@@ -16,3 +16,20 @@
 1553130502 /home/stud/ra30-2017/_os/t34/posta/klijent.h
 	<iostream>
 
+1554027334 source:/home/jigsaw/workspace/os/os_school/t34/posta/main.cpp
+	<thread>
+	"povratna.h"
+	"posta.h"
+	"klijent.h"
+
+1554027334 /home/jigsaw/workspace/os/os_school/t34/posta/povratna.h
+
+1554029355 /home/jigsaw/workspace/os/os_school/t34/posta/posta.h
+	<mutex>
+	<condition_variable>
+	"povratna.h"
+	"klijent.h"
+
+1554027334 /home/jigsaw/workspace/os/os_school/t34/posta/klijent.h
+	<iostream>
+

@@ -15,3 +15,19 @@
 
 1553130502 /home/stud/ra30-2017/_os/t34/ambulanta/pol.h
 
+1554027334 source:/home/jigsaw/workspace/os/os_school/t34/ambulanta/main.cpp
+	<thread>
+	"ambulanta.h"
+
+1554027334 /home/jigsaw/workspace/os/os_school/t34/ambulanta/ambulanta.h
+	<mutex>
+	<condition_variable>
+	"student.h"
+
+1554027334 /home/jigsaw/workspace/os/os_school/t34/ambulanta/student.h
+	<iostream>
+	<string>
+	"pol.h"
+
+1554027334 /home/jigsaw/workspace/os/os_school/t34/ambulanta/pol.h
+
