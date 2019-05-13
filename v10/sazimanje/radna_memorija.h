@@ -56,8 +56,8 @@ public:
     // Metodu dijagnostika.ispisi_memoriju potrebno je pozvati u sledećim momentima: nakon što proces zauzme memoriju i nakon što proces oslobodi memoriju.
     void koristi(int id_procesa, int br_lokacija_procesa, int trajanje) {
         unique_lock<mutex> lock(m);
-        int loc_begin = block_begin(br_lokacija_procesa);
-        while(loc_begin == -1){
+        int loc_begin;
+        while((loc_begin = block_begin(br_lokacija_procesa)) == -1){
             dijagnostika.proces_ceka(id_procesa);
             cv_process.wait(lock);
         }
@@ -107,6 +107,9 @@ public:
                 tmp[tmp_it++] = memory[i];
 
         memory = tmp;
+
+        dijagnostika.sazimanje_obavljeno();
+        dijagnostika.ispisi_memoriju(memory.begin(), memory.end());
 
         cv_process.notify_all();
 

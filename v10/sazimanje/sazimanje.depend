@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1547383118 source:/home/stud/ra30-2017/_os/os_school/v10/sazimanje/main.cpp
+	<thread>
+	<iostream>
+	<mutex>
+	<condition_variable>
+	"radna_memorija.h"
+
+1557727395 /home/stud/ra30-2017/_os/os_school/v10/sazimanje/radna_memorija.h
+	"dijagnostika.h"
+	<vector>
+	<mutex>
+	<condition_variable>
+
+1547383118 /home/stud/ra30-2017/_os/os_school/v10/sazimanje/dijagnostika.h
+	<iostream>
+	<mutex>
+	<vector>
+
