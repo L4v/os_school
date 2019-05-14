@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1557689586 source:/home/hk-47/workspace/os/os_school/v09/procesi/main.cpp
+1557856422 source:/home/hk-47/workspace/os/os_school/v09/procesi/main.cpp
 	<thread>
 	<vector>
 	"proces.h"
