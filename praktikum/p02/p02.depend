@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1554647947 source:/home/hk-47/workspace/os/os_school/praktikum/p02/main.cpp
+	<iostream>
+
+1554648139 source:/home/hk-47/workspace/os/os_school/praktikum/p02/p02.cpp
+	<thread>
+	<iostream>
+	<mutex>
+	<condition_variable>
+

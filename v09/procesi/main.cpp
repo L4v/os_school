@@ -79,10 +79,11 @@ void testirajSve() {
 	for (int i = 0; i < 5; i++) {
 		procesi[i].join();
 	}
+    exit(0);  //exit 0 - predstavlja signal detach-ovanoj niti da prekine rad jer više nije neophodna
+
 }
 
 int main() {
     testirajSve();
-
-    exit(0);  //exit 0 - predstavlja signal detach-ovanoj niti da prekine rad jer više nije neophodna
+    return 0;
 }

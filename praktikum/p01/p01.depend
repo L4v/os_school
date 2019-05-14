@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1554647639 source:/home/hk-47/workspace/os/os_school/praktikum/p01/p01.cpp
+	<mutex>
+	<thread>
+	<iostream>
+	"box.hh"
+
+1554647662 /home/hk-47/workspace/os/os_school/praktikum/p01/box.hh
+	<mutex>
+	<condition_variable>
+
