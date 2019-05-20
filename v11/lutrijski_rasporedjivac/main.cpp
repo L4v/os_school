@@ -1,10 +1,11 @@
+/*
 // Napisati konkurentni program koji simulira lutrijski raspoređivač u jednoprocesorskom sistemu.
 //
 // Procesi su predstavljeni nitima. Da bi se izvršili pozivaju metodu "izvrsi" deljene promenljive tipa Rasporedjivac. Svaki proces sadrži određeni broj naredbi. Naredbe se izvršavaju jedna po jedna. Za svaku naredbu, proces mora da sačeka da procesor bude slobodan. Izvršavanje jedne naredbe traje 300 ms. Nakon izvršavanja naredbe, proces odlazi u stanje spreman, a drugi spreman proces dobija procesor.
 //
 // Lutrijski raspoređivač se zasniva na tome da je svakom procesu inicijalno dodeljen određeni broj tiketa. Pri izboru sledećeg procesa za izvršavanje, na slučajan način se bira jedan tiket. Proces kojem je dodeljen taj tiket postaje aktivan. Dodelom različitog broja tiketa procesima se implicitno uspostavljaju priroriteti među njima, obzirom da proces sa većim brojem tiketa ima veće šanse da bude izabran.
 //
-
+*/
 #include <vector>
 #include <thread>
 
