@@ -12,14 +12,19 @@
 	<thread>
 	"rasporedjivac.h"
 
-1558332511 /home/stud/ra30-2017/_os/os_school/v11/prioritet/rasporedjivac.h
+1558337311 /home/stud/ra30-2017/_os/os_school/v11/prioritet/rasporedjivac.h
+	<mutex>
+	<vector>
 	"dijagnostika.h"
 	"cv_hrono.h"
-	<mutex>
-	<queue>
-	<vector>
+	"red.h"
 
 1547383118 /home/stud/ra30-2017/_os/os_school/v11/prioritet/dijagnostika.h
 	<iostream>
 	<mutex>
+
+1558336994 /home/stud/ra30-2017/_os/os_school/v11/prioritet/red.h
+	<deque>
+	<algorithm>
+	"cv_hrono.h"
 

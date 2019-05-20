@@ -1,11 +1,11 @@
 #ifndef RASPOREDJIVAC_H_INCLUDED
 #define RASPOREDJIVAC_H_INCLUDED
 
+#include <mutex>
+#include <vector>
 #include "dijagnostika.h"
 #include "cv_hrono.h"
-#include <mutex>
-#include <queue>
-#include <vector>
+#include "red.h"
 
 using namespace std;
 using namespace chrono;
@@ -13,18 +13,16 @@ using namespace chrono;
 class Rasporedjivac {
 private:
     Dijagnostika& dijagnostika;
-    cv_hrono* cv;
     mutex m;
     int active_proc;
-    int num_of_procs;
-
-    vector<deque<int>> procesi;
+    vector<Red> redovi;
 
 public:
     Rasporedjivac(Dijagnostika& d, int broj_nivoa_prioriteta) : dijagnostika(d) {
-        cv = new cv_hrono[broj_nivoa_prioriteta];
-        active_proc = -1;
-        num_of_procs = broj_nivoa_prioriteta;
+       active_proc = -1;
+       for(int i = 0; i < broj_nivoa_prioriteta; i++){
+            redovi.push_back(Red(i));
+       }
     }
 
     Dijagnostika& getDijagnostika() {
@@ -43,21 +41,38 @@ public:
         for(int i = 0; i < broj_naredbi; i ++){
             unique_lock<mutex> lock(m);
 
-            while(active_proc != -1){
-                dijagnostika.proces_ceka(id_procesa);
-                procesi[prioritet].push_back(id_procesa);
-                cv[prioritet].wait(lock);
-            }
+            if(active_proc == -1)
+                active_proc = id_procesa;
 
-            active_proc = id_procesa;
-            dijagnostika.proces_kreiran(id_procesa, prioritet, broj_naredbi);
+            while(active_proc != id_procesa){
+                dijagnostika.proces_ceka(id_procesa);
+                redovi[prioritet].dodaj_u_red(id_procesa, lock);
+            }
 
             // Izvrsavanje
             lock.unlock();
             this_thread::sleep_for(milliseconds(300));
             lock.lock();
 
+            int obavesti_red = -1;
+            for(auto it = redovi.begin(); it != redovi.end(); it++){
+                if(!it->prazan()){
+                    obavesti_red = it->preuzmi_prioritet();
+                    break;
+                }
+            }
 
+            if(obavesti_red != -1){
+                int sledeci;
+                if(obavesti_red > prioritet && i < broj_naredbi-1)
+                    sledeci = id_procesa;
+                else{
+                    sledeci = redovi[obavesti_red].izbaci_iz_reda();
+                }
+                active_proc = sledeci;
+            }else
+                active_proc = -1;
+            dijagnostika.izvrsio_naredbu(id_procesa, i);
         }
 	}
 };
