@@ -1,4 +1,3 @@
-/*
 // Napisati konkurentni program koji simulira menjanje kapaciteta raspoložive memorije pri izvršavanju nekog programa (uvođenjem virtuelne memorije).
 // Program je predstavljen klasom Program. Konstruktoru klase prosleđuje se ukupni kapacitet RAM memorije. Nit predstavljena datom funkcijom "izvrsavanje" izvršava listu naredbi programa pozivom metode izvrsi_naredbu() klase Program. Metoda izvrsi_naredbu() izvršava prosleđenu naredbu. Moguće naredbe su:
 // - malloc(X) - zauzima se X količina memorije i
@@ -10,7 +9,6 @@
 //
 // Bilo kakav pristup memoriji (i RAM i virtuelnoj) je ekskluzivan - u jednom trenutku samo jedna naredba može zauzimati memoriju i dok operativni sistem zauzima virtuelnu memoriju, nije moguć pristup bilo kojoj memoriji.
 //
-*/
 
 #include <thread>
 #include <vector>

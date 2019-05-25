@@ -1,4 +1,3 @@
-/*
 // Napisati konkurentni program koji simulira prioritetni raspoređivač u jednoprocesorskom sistemu.
 //
 // Procesi su predstavljeni nitima. Da bi se izvršili pozivaju metodu "izvrsi" deljene promenljive tipa Rasporedjivac. Svaki proces sadrži određeni broj naredbi. Naredbe se izvršavaju jedna po jedna. Za svaku naredbu, proces mora da sačeka da procesor bude slobodan. Izvršavanje jedne naredbe traje 300 ms. Nakon izvršavanja naredbe, proces odlazi u stanje spreman, a drugi spreman proces dobija procesor.
@@ -11,7 +10,7 @@
 //
 // Za uspostavljanje reda čekanja po FIFO principu koristiti datu klasu "cv_hrono".
 //
-*/
+
 #include <thread>
 
 #include "rasporedjivac.h"

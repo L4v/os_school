@@ -1,4 +1,3 @@
-/*
 // Napisati konkurentni program koji simulira raspoređivanje po algoritmu povratne sprege u jednoprocesorskom sistemu.
 //
 // Procesi su predstavljeni nitima. Da bi se izvršili pozivaju metodu "izvrsi" deljene promenljive tipa Rasporedjivac. Svaki proces sadrži određeni broj naredbi. Naredbe se izvršavaju jedna po jedna. Za svaku naredbu, proces mora da sačeka da procesor bude slobodan. Izvršavanje jedne naredbe traje 300 ms. Nakon izvršavanja naredbe, proces odlazi u stanje spreman, a drugi spreman proces dobija procesor.
@@ -9,7 +8,6 @@
 //
 // Prioritet procesa se određuje dinamički u toku izvršavanja procesa. Na početku rada, proces ima najviši prioritet. Kada izvrši naredbu, prelazi na jedan nivo prioriteta ispod. Nakon svake naredbe, procesu se smanjuje prioritet za jedan nivo, dok ne dođe do najnižeg prioriteta. Ako je došao do najnižeg prioriteta, na tom prioritetu ostaje do kraja izvršavanja.
 //
-*/
 
 #include <thread>
 

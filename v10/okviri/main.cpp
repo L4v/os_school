@@ -1,4 +1,3 @@
-/*
 // Napisati konkurentni program koji simulira jednostavno zauzimanje radne memorije od strane procesa.
 // Radna memorija je predstavljena datom klasom Radna_memorija i podeljena je na N okvira (N se prosleđuje pri instanciranju objekta klase Radna_memorija). Okvir predstavlja skup memorijskih lokacija u koji se mogu smestiti podaci ili instrukcije procesa.
 //
@@ -8,7 +7,6 @@
 //
 // Nakon izvršavanja procesa, proces treba da oslobodi okvire koje je koristio, što je potrebno implementirati u metodi "oslobodi".
 //
-*/
 
 #include <thread>
 

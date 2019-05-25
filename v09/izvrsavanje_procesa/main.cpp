@@ -1,8 +1,8 @@
 // Napraviti konkurentni program koji simulira izvršavanje procesa u računarskom sistemu sa jednim ulazno-izlaznim uređajem.
 //
 // Procesi su predstavljeni nitima. Telo niti je data funkcija proces. Svaki proces izvršava određeni broj naredbi pozivom funkcije izvrsi_proces. Naredbe se izvršavaju jedna po jedna.
-//Da bi proces izvršio naredbu, mora da dobije procesor. Nakon izvršavanja jedne naredbe, proces odlazi u cooldown period od 100 ms, pre nego što ponovo pokuša da koristi procesor i izvrši narednu
-//naredbu. Izvršavanje jedne naredbe traje 1 sekundu.
+//Da bi proces izvršio naredbu, mora da dobije procesor. Nakon izvršavanja jedne naredbe, proces odlazi u cooldown period od 100 ms, pre nego što ponovo pokuša da koristi procesor i izvrši
+//narednu naredbu. Izvršavanje jedne naredbe traje 1 sekundu.
 //
 // Pored procesa i ulazno-izlazni uređaj koristi procesor. Smer komunikacije je takav da se ulazno-izlazni uređaj obraća operativnom sistemu kako bi ga informisao o novom ulazu (npr. tastatura
 //obaveštava OS o pritisnutom tasteru). Ovo se postiže time što ulazno-izlazni uređaj postavlja prekid kojim signalizira operativnom sistemu da ima novi podatak i da ima potrebu da izvrši kod koji
