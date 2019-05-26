@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1558859782 source:/home/jigsaw/workspace/os/os_school/v10/okviri/main.cpp
+	<thread>
+	"radna_memorija.h"
+
+1558866004 /home/jigsaw/workspace/os/os_school/v10/okviri/radna_memorija.h
+	<mutex>
+	<condition_variable>
+	<vector>
+	"dijagnostika.h"
+
+1558610459 /home/jigsaw/workspace/os/os_school/v10/okviri/dijagnostika.h
+	<iostream>
+	<mutex>
+	<vector>
+

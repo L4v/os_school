@@ -1,6 +1,10 @@
 #ifndef RADNA_MEMORIJA_H_INCLUDED
 #define RADNA_MEMORIJA_H_INCLUDED
 
+#include <vector>
+#include <condition_variable>
+#include <mutex>
+
 #include "dijagnostika.h"
 
 using namespace std;
@@ -9,10 +13,29 @@ using namespace chrono;
 class Radna_memorija {
 private:
     Dijagnostika& dijagnostika;
+    mutex m;
+    condition_variable cv_proces, cv_sazimanje;
+    bool sazimanje;
+    int slobodan_prostor;
+    vector<char> memorija;
+
+
+    /*
+    * Trazi pocetak prvog slobodnog bloka odredjene velicine
+    */
+    int pocetak_bloka(int velicina){
+        int pocetak = 0;
+
+        for(auto it = memorija.begin(); it != memorija.end(); it++){
+
+        }
+    }
 
 public:
     Radna_memorija(Dijagnostika& d, int ukupno_lokacija) : dijagnostika(d) {
-        // Proširiti po potrebi ...
+        slobodan_prostor = ukupno_lokacija;
+        memorija.resize(ukupno_lokacija);
+        sazimanje = false;
     }
 
     Dijagnostika& getDijagnostika() {
