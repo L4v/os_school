@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1558774802 source:/home/jigsaw/workspace/os/os_school/v09/izvrsavanje_procesa/main.cpp
+	<thread>
+	"procesor.h"
+
+1558810810 /home/jigsaw/workspace/os/os_school/v09/izvrsavanje_procesa/procesor.h
+	<condition_variable>
+	<mutex>
+	"dijagnostika.h"
+
+1557566912 /home/jigsaw/workspace/os/os_school/v09/izvrsavanje_procesa/dijagnostika.h
+	<iostream>
+	<mutex>
+

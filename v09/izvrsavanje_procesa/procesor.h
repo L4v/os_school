@@ -45,11 +45,11 @@ public:
                 cv_proces.wait(lock);
             }
 
+            dijagnostika.proces_izvrsava(id, i);
             cpu_zauzet = true;
 
-            dijagnostika.proces_izvrsava(id, i);
             lock.unlock();
-            this_thread::sleep_for(chrono::milliseconds(100));
+            this_thread::sleep_for(chrono::milliseconds(1000));
             lock.lock();
             dijagnostika.proces_zavrsio(id, i);
 
@@ -58,6 +58,11 @@ public:
             if(prekid) cv_ui.notify_one();
             else cv_proces.notify_one();
 
+
+            // Cooldown
+            lock.unlock();
+            this_thread::sleep_for(chrono::milliseconds(100));
+            lock.lock(); // Nepotrebno zbog destruktora
         }
     }
 
@@ -69,19 +74,21 @@ public:
     void prekini() {
         unique_lock<mutex> lock(m);
         prekid = true;
-        while(cpu_zauzet && !prekid){
+        while(cpu_zauzet){
             dijagnostika.obradjivac_ceka();
             cv_ui.wait(lock);
         }
 
+        dijagnostika.obradjivac_izvrsava();
         cpu_zauzet = true;
 
-        dijagnostika.obradjivac_izvrsava();
         lock.unlock();
         this_thread::sleep_for(chrono::milliseconds(300));
         lock.lock();
-        dijagnostika.obradjivac_zavrsio();
         cpu_zauzet = false;
+        dijagnostika.obradjivac_zavrsio();
+
+        prekid = false;
 
         cv_proces.notify_one();
     }

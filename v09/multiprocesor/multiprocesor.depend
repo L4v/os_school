@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1558811480 source:/home/jigsaw/workspace/os/os_school/v09/multiprocesor/main.cpp
+	<vector>
+	<thread>
+	"memorija.h"
+
+1556094390 /home/jigsaw/workspace/os/os_school/v09/multiprocesor/memorija.h
+	<mutex>
+	<condition_variable>
+	"dijagnostika.h"
+
+1557566912 /home/jigsaw/workspace/os/os_school/v09/multiprocesor/dijagnostika.h
+	<iostream>
+
