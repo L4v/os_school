@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1558880210 source:/home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/main.cpp
+	<thread>
+	<vector>
+	"program.h"
+
+1558882055 /home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/program.h
+	<condition_variable>
+	<mutex>
+	"dijagnostika.h"
+	"naredba.h"
+	"povratna_vrednost.h"
+
+1557778098 /home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/dijagnostika.h
+	<iostream>
+	<mutex>
+	"naredba.h"
+
+1557778098 /home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/naredba.h
+	<string>
+
+1557778098 /home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/povratna_vrednost.h
+
