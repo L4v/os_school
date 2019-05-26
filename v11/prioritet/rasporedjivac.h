@@ -1,6 +1,11 @@
 #ifndef RASPOREDJIVAC_H_INCLUDED
 #define RASPOREDJIVAC_H_INCLUDED
 
+#include <condition_variable>
+#include <mutex>
+#include <vector>
+#include <queue>
+
 #include "dijagnostika.h"
 
 using namespace std;
