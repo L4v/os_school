@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1557126815 source:/home/stud/ra30-2017/_os/os_school/v09/multiprocesor/main.cpp
+1558811480 source:/home/jigsaw/workspace/os/os_school/v09/multiprocesor/main.cpp
 	<vector>
 	<thread>
 	"memorija.h"
 
-1557129955 /home/stud/ra30-2017/_os/os_school/v09/multiprocesor/memorija.h
+1556094390 /home/jigsaw/workspace/os/os_school/v09/multiprocesor/memorija.h
 	<mutex>
 	<condition_variable>
 	"dijagnostika.h"
 
-1547383118 /home/stud/ra30-2017/_os/os_school/v09/multiprocesor/dijagnostika.h
+1557566912 /home/jigsaw/workspace/os/os_school/v09/multiprocesor/dijagnostika.h
 	<iostream>
 

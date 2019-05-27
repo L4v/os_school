@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1557121075 source:/home/stud/ra30-2017/_os/os_school/v09/izvrsavanje_procesa/main.cpp
+1558774802 source:/home/jigsaw/workspace/os/os_school/v09/izvrsavanje_procesa/main.cpp
 	<thread>
 	"procesor.h"
 
-1557122303 /home/stud/ra30-2017/_os/os_school/v09/izvrsavanje_procesa/procesor.h
-	<mutex>
+1558810810 /home/jigsaw/workspace/os/os_school/v09/izvrsavanje_procesa/procesor.h
 	<condition_variable>
+	<mutex>
 	"dijagnostika.h"
 
-1547383118 /home/stud/ra30-2017/_os/os_school/v09/izvrsavanje_procesa/dijagnostika.h
+1557566912 /home/jigsaw/workspace/os/os_school/v09/izvrsavanje_procesa/dijagnostika.h
 	<iostream>
 	<mutex>
 

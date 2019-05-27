@@ -1,15 +1,15 @@
 # depslib dependency file v1.0
-1557723994 source:/home/stud/ra30-2017/_os/os_school/v10/okviri/main.cpp
+1558859782 source:/home/jigsaw/workspace/os/os_school/v10/okviri/main.cpp
 	<thread>
 	"radna_memorija.h"
 
-1557724990 /home/stud/ra30-2017/_os/os_school/v10/okviri/radna_memorija.h
-	"dijagnostika.h"
-	<vector>
+1558866004 /home/jigsaw/workspace/os/os_school/v10/okviri/radna_memorija.h
 	<mutex>
 	<condition_variable>
+	<vector>
+	"dijagnostika.h"
 
-1547383118 /home/stud/ra30-2017/_os/os_school/v10/okviri/dijagnostika.h
+1558610459 /home/jigsaw/workspace/os/os_school/v10/okviri/dijagnostika.h
 	<iostream>
 	<mutex>
 	<vector>

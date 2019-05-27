@@ -1,26 +1,33 @@
 #ifndef RADNA_MEMORIJA_H_INCLUDED
 #define RADNA_MEMORIJA_H_INCLUDED
 
-#include "dijagnostika.h"
-#include <vector>
 #include <mutex>
 #include <condition_variable>
+#include <vector>
+
+#include "dijagnostika.h"
 
 using namespace std;
 
 class Radna_memorija {
 private:
     Dijagnostika& dijagnostika;
-    condition_variable free;
-    vector<int> pages;
-    int free_space;
+    vector<int> okviri;
+    int ukupno_okvira;
+    int slobodan_prostor;
     mutex m;
+    condition_variable cv;
+
 public:
     // dijagnostika  - referenca na instancu klase Dijagnostika
 	// ukupno_okvira - ukupan broj okvira u memoriji
     Radna_memorija(Dijagnostika& d, int ukupno_okvira) : dijagnostika(d) {
-        free_space = ukupno_okvira;
-        pages.resize(ukupno_okvira, -1);
+        ukupno_okvira = ukupno_okvira;
+        okviri.resize(ukupno_okvira);
+        slobodan_prostor = ukupno_okvira;
+
+        for(int i = 0; i < ukupno_okvira; i++)
+            okviri[i] = -1;
     }
 
     Dijagnostika& getDijagnostika() {
@@ -37,25 +44,21 @@ public:
     // kada proces zauzme okvire radne memorije, potrebno je pozvati dijagnostika.ispisi_okvire kako bi se prikazalo trenutno zauzece svih okvira (podrazumeva se da zelimo da prikazemo sliku svih okvira, tako da ce se videti i okviri koje su zauzeli drugi procesi).
     void ucitaj(int broj_stranica, int id_procesa) {
         unique_lock<mutex> lock(m);
-
-        while(free_space < broj_stranica){
+        while(slobodan_prostor < broj_stranica){
             dijagnostika.proces_ceka(id_procesa);
-            free.wait(lock);
+            cv.wait(lock);
         }
-        int pages_allocated = 0;
-
-        dijagnostika.proces_se_ucitava(id_procesa, broj_stranica);
-
-        for(auto it = pages.begin(); it != pages.end(); it++){
+        dijagnostika.proces_se_izvrsava(id_procesa);
+        int i = broj_stranica;
+        for(auto it = okviri.begin(); it != okviri.end(); it++){
             if(*it == -1){
                 *it = id_procesa;
-                free_space--;
-                dijagnostika.proces_se_izvrsava(id_procesa);
+                slobodan_prostor--;
+                if(!(--i)) // U slucaju da je zauzeo sve lokacije, izlazi iz petlje
+                    break;
             }
-            if(++pages_allocated == broj_stranica)
-                break;
         }
-        dijagnostika.ispisi_okvire(pages.begin(), pages.end());
+        dijagnostika.ispisi_okvire(okviri.begin(), okviri.end());
 
         dijagnostika.proces_se_zavrsio(id_procesa);
     }
@@ -65,13 +68,14 @@ public:
     // id_procesa - identifikator procesa koji oslobađa memoriju
     void oslobodi(int id_procesa) {
         unique_lock<mutex> lock(m);
-        for(auto it = pages.begin(); it != pages.end(); it++){
+        for(auto it = okviri.begin(); it != okviri.end(); it++)
             if(*it == id_procesa){
                 *it = -1;
-                free_space++;
+                slobodan_prostor++;
             }
-        }
-        free.notify_all();
+
+
+        cv.notify_all();
     }
 };
 

@@ -3,6 +3,7 @@
 
 #include <mutex>
 #include <condition_variable>
+#include <vector>
 
 #include "dijagnostika.h"
 
@@ -13,23 +14,37 @@ enum Stanje {SLOBODAN, CITANJE, UPIS };
 
 class Memorija {
 private:
+
+    // Predstavlja blok memorije
+    struct Blok{
+        Stanje stanje; // Stanje bloka
+        int ceka, cita; // cita - broj niti koji citaju, ceka - broj niti koje cekaju
+        condition_variable cv_upis, cv_citanje;
+        Blok() : ceka(0), cita(0), stanje(SLOBODAN){}
+
+    };
+
     Dijagnostika& dijagnostika;
-    condition_variable* cv_write, *cv_read;
     mutex m;
-    Stanje* states;
-    char* byte;
-    int read_requests, active_readers;
+    vector<char> lokacije;
+    vector<Blok*> blokovi; // Stanja reci
+    int br_lokacija;
 
 public:
-    Memorija(Dijagnostika& d, int bajtova) : dijagnostika(d), read_requests(0), active_readers(0) {
-        this->cv_write = new condition_variable[bajtova%4 + 1];
-        this->cv_read = new condition_variable[bajtova%4 + 1];
-        this->byte = new char[bajtova];
-        for(int i = 0; i < bajtova; i++)
-            this->byte[i] = 0;
-        states ono::seconds(1));= new Stanje[bajtova%4 + 1];
-        for(int i = 0; i < bajtova%4; i++)
-            states[i] = SLOBODAN;
+    Memorija(Dijagnostika& d, int bajtova) : dijagnostika(d) {
+        br_lokacija = bajtova;
+        blokovi.resize((bajtova + 3)/4); // (5 + 3)/4 = 2
+        lokacije.resize(br_lokacija);
+        for(int i = 0; i < bajtova; i ++)
+            lokacije[i] = -1;
+
+        for(int i = 0; i < blokovi.size(); i ++)
+            blokovi.push_back(new Blok);
+    }
+
+    ~Memorija(){
+        for(auto it = blokovi.begin(); it != blokovi.end(); it++)
+            delete *it;
     }
 
     // Metoda koju poziva nit koja simulira proces koji pristupa memoriji kako bi obavila čitanje iz nje
@@ -41,26 +56,32 @@ public:
     // Potrebno je pozvati dijagnostika.proces_procitao onda kada je ostvaren pristup memoriji i kada je vrednost učitana iz nje.
     char citaj(int rbp, int adresa) {
         unique_lock<mutex> lock(m);
-        while(states[adresa%4] == UPIS){
-            read_requests++;
+        int trenutni_blok = adresa / 4;
+        while(blokovi[trenutni_blok]->stanje == UPIS){
             dijagnostika.proces_ceka_citanje(rbp, adresa);
-            cv_read[adresa%4].wait(lock);
-            read_requests--;
+            (blokovi[trenutni_blok]->ceka)++;
+            blokovi[trenutni_blok]->cv_citanje.wait(lock);
+            (blokovi[trenutni_blok]->ceka)--;
         }
-        states[adresa%4] = CITANJE;
-        dijagnostika.proces_ceka_citanje(rbp, adresa);
+
+        blokovi[trenutni_blok]->stanje = UPIS;
+        (blokovi[trenutni_blok]->cita)++;
 
         lock.unlock();
-        this_thread::sleep_for(chrono::seconds(1));
+        this_thread::sleep_for(seconds(1));
         lock.lock();
 
-        dijagnostika.proces_procitao(rbp, adresa, byte[adresa]);
-        states[adresa%4] = SLOBODAN;
-        /*if(read_requests)
-            cv_read[adresa%4].notify_all();
-        else*/
-        cv_write[adresa%4].notify_one();
-        return byte[adresa];
+
+
+        if(--(blokovi[trenutni_blok]->cita) == 0){
+            blokovi[trenutni_blok]->stanje = SLOBODAN;
+            blokovi[trenutni_blok]->cv_upis.notify_one();
+
+        }
+
+        dijagnostika.proces_procitao(rbp, adresa, lokacije[adresa]);
+
+        return lokacije[adresa];
     }
 
     // Metoda koju poziva nit koja simulira proces koji pristupa memoriji kako bi obavila upis u nju
@@ -73,24 +94,26 @@ public:
     // Potrebno je pozvati dijagnostika.proces_upisao onda kada je ostvaren pristup memoriji i kada je vrednost upisana u nju.
     void pisi(int rbp, int adresa, char vrednost) {
         unique_lock<mutex> lock(m);
-        while(states[adresa%4] != SLOBODAN || read_requests != 0){
+        int trenutni_blok = adresa / 4;
+        while(blokovi[trenutni_blok]->stanje != SLOBODAN){
             dijagnostika.proces_ceka_upis(rbp, adresa);
-            cv_write[adresa%4].wait(lock);
+            blokovi[trenutni_blok]->cv_upis.wait(lock);
         }
-        states[adresa%4] = UPIS;
+
+        blokovi[trenutni_blok]->stanje = UPIS;
 
         lock.unlock();
-        this_thread::sleep_for(chrono::seconds(1));
+        this_thread::sleep_for(seconds(1));
         lock.lock();
+        lokacije[adresa] = vrednost;
 
-        byte[adresa%4] = vrednost;
         dijagnostika.proces_upisao(rbp, adresa, vrednost);
-        states[adresa%4] = SLOBODAN;
 
-        if(read_requests)
-            cv_read[adresa%4].notify_all();
+        if(blokovi[trenutni_blok]->ceka)
+            blokovi[trenutni_blok]->cv_citanje.notify_one();
         else
-            cv_write[adresa%4].notify_one();
+            blokovi[trenutni_blok]->cv_upis.notify_one();
+
     }
 };
 

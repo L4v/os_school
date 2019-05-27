@@ -1,24 +1,23 @@
 # depslib dependency file v1.0
-1557729011 source:/home/stud/ra30-2017/_os/os_school/v10/virtuelna_memorija/main.cpp
+1558880210 source:/home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/main.cpp
 	<thread>
 	<vector>
 	"program.h"
 
-1557733481 /home/stud/ra30-2017/_os/os_school/v10/virtuelna_memorija/program.h
+1558882055 /home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/program.h
+	<condition_variable>
+	<mutex>
 	"dijagnostika.h"
 	"naredba.h"
 	"povratna_vrednost.h"
-	<mutex>
-	<condition_variable>
-	<vector>
 
-1547383118 /home/stud/ra30-2017/_os/os_school/v10/virtuelna_memorija/dijagnostika.h
+1557778098 /home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/dijagnostika.h
 	<iostream>
 	<mutex>
 	"naredba.h"
 
-1547383118 /home/stud/ra30-2017/_os/os_school/v10/virtuelna_memorija/naredba.h
+1557778098 /home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/naredba.h
 	<string>
 
-1547383118 /home/stud/ra30-2017/_os/os_school/v10/virtuelna_memorija/povratna_vrednost.h
+1557778098 /home/hk-47/workspace/os/os_school/v10/virtuelna_memorija/povratna_vrednost.h
 

@@ -1,30 +1,31 @@
 #ifndef PROGRAM_H_INCLUDED
 #define PROGRAM_H_INCLUDED
 
+#include <condition_variable>
+#include <mutex>
+
 #include "dijagnostika.h"
 #include "naredba.h"
 #include "povratna_vrednost.h"
-#include <mutex>
-#include <condition_variable>
-#include <vector>
-
 
 using namespace std;
 
 class Program {
 private:
     Dijagnostika& dijagnostika;
-    condition_variable cv_ram, cv_vm;
-    int free_space, vm_to_alloc, allocated_vm;
-    bool alloc;//vm_alloc, ram_alloc;
     mutex m;
+    int slobodno; // Koliko slobodnog RAM prostora ima
+    int zauzmi_vm; // Koliko treba zauzeti vm
+    int zauzeti_vm; // Koliko je zauzeto
+    bool zauzimanje_vm; // Da li se vrsi zauzimanje virtuelne memorije
+    condition_variable cv_virt; // Signalizira pocetak zauzimanja vm
+    condition_variable cv_zavrseno; // Signalizira zavrsetak zauzimanja vm
 
 public:
     Program(Dijagnostika& d, int kapacitet) : dijagnostika(d) {
-        free_space = kapacitet;
-        vm_to_alloc = 0;
-        allocated_vm = 0;
-        alloc = false;
+        zauzimanje_vm = false;
+        slobodno = kapacitet;
+        zauzeti_vm = 0;
     }
 
     Dijagnostika& getDijagnostika() {
@@ -37,60 +38,52 @@ public:
     // Vraća instancu klase Povratna_vrednost koja sadrži opis zauzeća memorije NAKON izvršenja naredbe.
     Povratna_vrednost izvrsi_naredbu(Naredba naredba) {
         unique_lock<mutex> lock(m);
-        while(alloc)
-            cv_ram.wait(lock);
-
-        //ram_alloc = true;
-
-        Povratna_vrednost ret;
-
-        dijagnostika.pokrenuta_naredba(naredba);
-
-        if(!naredba.tip.compare("malloc")){
-            if(naredba.kolicina_memorije > free_space){
-                vm_to_alloc = naredba.kolicina_memorije;
-                alloc = true;
-                cv_vm.notify_one();
-                while(alloc)
-                    cv_ram.wait(lock);
+        int alocirani_vm = 0;
+        if(naredba.tip.compare("repeat")){ // compare vraca 0 ako su isti
+            // Ovde ulazi ako nije repeat
+            if(naredba.kolicina_memorije <= slobodno){
+                // Ovde ulazi ako moze sve u RAM
+                slobodno -= naredba.kolicina_memorije;
             }else{
-                free_space -= naredba.kolicina_memorije;
+                zauzmi_vm = naredba.kolicina_memorije;
+                zauzimanje_vm = true;
+                cv_virt.notify_one();
+                while(zauzimanje_vm)
+                    cv_zavrseno.wait(lock);
             }
         }else{
+            // Ovde ulazi ako je repeat
             for(int i = 0; i < naredba.ponavljanja; i++){
-                if(naredba.kolicina_memorije > free_space){
-                    vm_to_alloc = naredba.kolicina_memorije;
-                    alloc = true;
-                    cv_vm.notify_one();
-                    while(alloc)
-                        cv_ram.wait(lock);
-                }else
-                    free_space -= naredba.kolicina_memorije;
+                if(naredba.kolicina_memorije > slobodno){
+                    zauzmi_vm = naredba.kolicina_memorije;
+                    zauzimanje_vm = true;
+                    cv_virt.notify_one();
+                    while(zauzimanje_vm)
+                        cv_zavrseno.wait(lock);
+                }
             }
         }
 
-        ret.slobodno_ram = free_space;
-        ret.zauzeto_u_virtuelnoj = allocated_vm;
-        dijagnostika.izvrsena_naredba(naredba, free_space, allocated_vm);
-        //ram_alloc = false;
 
-        return ret;
+        return {slobodno, zauzeti_vm};
     }
 
     // Metoda koju poziva nit koja simulira deo operativnog sistema koji se bavi zauzimanjem virtuelne memorije kako bi se zauzela određena količina VM
     // Potrebnu količinu VM (kao i bilo koju drugu neophodnu informaciju) preneti u nekom izabranom polju klase.
     int zauzmi_virtuelnu_memoriju() {
         unique_lock<mutex> lock(m);
+        while(!zauzimanje_vm)
+            cv_virt.wait(lock);
 
-        while(!alloc)
-            cv_vm.wait(lock);
 
-        alloc = false;
-        allocated_vm += vm_to_alloc;
-        cout << allocated_vm << " " << vm_to_alloc << endl;
-        dijagnostika.izvrseno_zauzimanje_vm(allocated_vm);
-        cv_ram.notify_one();
-        return allocated_vm;
+        zauzeti_vm += zauzmi_vm;
+        zauzmi_vm = 0;
+
+        this_thread::sleep_for(chrono::seconds(1));
+        zauzimanje_vm = false;
+        cv_zavrseno.notify_one();
+
+        return zauzeti_vm;
     }
 };
 

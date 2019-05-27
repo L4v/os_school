@@ -11,19 +11,9 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="c_0x" />
-				<Option projectCompilerOptionsRelation="0" />
-				<Option projectLinkerOptionsRelation="0" />
-				<Option projectIncludeDirsRelation="0" />
-				<Option projectResourceIncludeDirsRelation="0" />
-				<Option projectLibDirsRelation="0" />
-				<MakeCommands>
-					<Build command="" />
-					<CompileFile command="" />
-					<Clean command="" />
-					<DistClean command="" />
-					<AskRebuildNeeded command="" />
-					<SilentBuild command=" &gt; $(CMD_NULL)" />
-				</MakeCommands>
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
 			</Target>
 		</Build>
 		<Compiler>
