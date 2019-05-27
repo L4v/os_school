@@ -1,12 +1,19 @@
 // Napisati konkurentni program koji simulira raspoređivanje po sistemu SPN (Najkraći proces sledeći).
 //
-// Ovo je politika raspoređivanja bez prekidanja procesa koji je zauzeo procesor. Drugim rečima, proces koji je zauzeo procesor izvršava se u potpunosti pre nego što procesor može da se preključi na neki od narednih procesa. Kod preključivanja uvek treba voditi računa da procesor zauzme onaj proces koji ima najkraće očekivano vreme izvršavanja (mereno u stotinama milisekundi).
+// Ovo je politika raspoređivanja bez prekidanja procesa koji je zauzeo procesor. Drugim rečima, proces koji je
+//zauzeo procesor izvršava se u potpunosti pre nego što procesor može da se preključi na neki od narednih procesa.
+//Kod preključivanja uvek treba voditi računa da procesor zauzme onaj proces koji ima najkraće očekivano vreme izvršavanja
+//(mereno u stotinama milisekundi).
 //
 // Klasa Racunar predstavlja deljenu promenljivu kojoj pristupaju niti procesi i rasporedjivac.
 //
-// Procesi su predstavljeni nitima čije je telo data funkcija proces. Proces se izvršava pozivom metode izvrsi klase Racunar. Izvrsavanje će trajati onoliko stotina milisekundi kolika je vrednost parametra trajanje. Ukoliko je procesor zauzet, proces ulazi u čekanje kako bi ga raspoređivač naknadno rasporedio (kada dođe njegov red na izvršavanje).
+// Procesi su predstavljeni nitima čije je telo data funkcija proces. Proces se izvršava pozivom metode izvrsi klase Racunar.
+//Izvrsavanje će trajati onoliko stotina milisekundi kolika je vrednost parametra trajanje. Ukoliko je procesor zauzet, proces
+//ulazi u čekanje kako bi ga raspoređivač naknadno rasporedio (kada dođe njegov red na izvršavanje).
 //
-// Kada se jedan proces završi, potrebno je da se rasporedi naredni proces. Raspoređivanje vrši posebna nit predstavljena funkcijom rasporedjivac. Ova nit se aktivira kada je potrebno izvršiti raspoređivanje narednog procesa a raspoređivanje se vrši prema SPN algoritmu opisanom na početku zadatka.
+// Kada se jedan proces završi, potrebno je da se rasporedi naredni proces. Raspoređivanje vrši posebna nit predstavljena
+//funkcijom rasporedjivac. Ova nit se aktivira kada je potrebno izvršiti raspoređivanje narednog procesa a raspoređivanje se
+//vrši prema SPN algoritmu opisanom na početku zadatka.
 //
 
 #include <thread>
