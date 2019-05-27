@@ -1,17 +1,30 @@
-// Napisati konkurentni program koji modeluje ponašanje računarskog sistema koji ima sledeće delove:
+// Napisati konkurentni program koji modeluje ponašanje računarskog sistema koji ima
+//sledeće delove:
 // - magistralu - sabirnicu,
 // - N procesora,
 // - memoriju,
 // - DMA kontroler.
 // Svi procesori, memorija i DMA kontroler su zakačeni na istu magistralu.
 //
-// Memorija je predstavljena klasom Memorija. Pri instanciranju objekta ovog tipa se zadaje veličina memorije. Memorija se može čitati (metodom citaj()) i pisati (metodom pisi()). Obe operacije treba da budu thread-safe. I čitanje iz memorije i pisanje u memoriju traje po 300 ms.
+// Memorija je predstavljena klasom Memorija. Pri instanciranju objekta ovog tipa
+//se zadaje veličina memorije. Memorija se može čitati (metodom citaj()) i pisati
+//(metodom pisi()). Obe operacije treba da budu thread-safe. I čitanje iz memorije
+//i pisanje u memoriju traje po 300 ms.
 //
-// Magistrala je predstavljena klasom Magistrala. Magistrala ima 3 metode koje pozivaju procesori (citaj_memoriju(), pisi_u_memoriju(), dma()) i jednu koju poziva DMA kontroler (okidac_dma_kontrolera()). Sve operacije treba da budu thread-safe. Pre pristupa memoriji neophodno je zaključati (ekskluzivno) magistralu. Zaključavanje magistrale traje 700ms. Po završetku pristupa magistrala se otključava (trenutno). DMA transfer se obavlja tako što se magistrala zaključa jednom, obave se svi transferi i na kraju se magistrala otključa.
+// Magistrala je predstavljena klasom Magistrala. Magistrala ima 3 metode koje
+//pozivaju procesori (citaj_memoriju(), pisi_u_memoriju(), dma()) i jednu koju poziva
+//DMA kontroler (okidac_dma_kontrolera()). Sve operacije treba da budu thread-safe.
+//Pre pristupa memoriji neophodno je zaključati (ekskluzivno) magistralu.
+//Zaključavanje magistrale traje 700ms. Po završetku pristupa magistrala se
+//otključava (trenutno). DMA transfer se obavlja tako što se magistrala zaključa
+//jednom, obave se svi transferi i na kraju se magistrala otključa.
 //
-// DMA kontroler je predstavljen funkcijom DMA_kontroler. Kontroler poziva operaciju Magistrala::okidac_dma_kontrolera() i u njoj čeka dok neki procesor ne zatraži DMA prenos.
+// DMA kontroler je predstavljen funkcijom DMA_kontroler. Kontroler poziva operaciju
+//Magistrala::okidac_dma_kontrolera() i u njoj čeka dok neki procesor ne zatraži DMA
+//prenos.
 //
-// Procesori pri stvaranju dobiju zadat program (u obliku vektora naredbi) koji treba da izvrše. Naredbe su predstavljene objektima klase Naredba. Moguće naredbe su:
+// Procesori pri stvaranju dobiju zadat program (u obliku vektora naredbi) koji treba
+//da izvrše. Naredbe su predstavljene objektima klase Naredba. Moguće naredbe su:
 // - pisanja u memoriju,
 // - čitanje iz memorije i
 // - DMA transfer

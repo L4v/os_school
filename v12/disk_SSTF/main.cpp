@@ -1,10 +1,20 @@
-// Napisati konkurentni program koji simulira raspoređivanje diska po SSTF (Shortest Service Time First) principu.
+// Napisati konkurentni program koji simulira raspoređivanje diska po SSTF
+//(Shortest Service Time First) principu.
 //
-// Kod ovog načina raspoređivanja diska, iz skupa UI zahteva prednost ima onaj zahtev koji zahteva najmanje pomeranje ručice diska. Drugim rečima, pristupiće se onoj stazi koja je najbliža stazi na kojoj je trenutno glava diska.
+// Kod ovog načina raspoređivanja diska, iz skupa UI zahteva prednost ima onaj
+//zahtev koji zahteva najmanje pomeranje ručice diska. Drugim rečima, pristupiće se
+//onoj stazi koja je najbliža stazi na kojoj je trenutno glava diska.
 //
-// Klasa OS predstavlja deo operativnog sistema koji je zadužen za raspoređivanje zahteva. Metodu uputi_ui_zahtev pozivaju niti koje predstavljaju procese. U ovoj metodi postavlja se zahtev raspoređivaču diska da izvrši UI operaciju na određenoj stazi diska. Proces mora da sačeka da zahtev bude izvršen, pre nego nastavi dalje izvršavanje.
+// Klasa OS predstavlja deo operativnog sistema koji je zadužen za raspoređivanje
+//zahteva. Metodu uputi_ui_zahtev pozivaju niti koje predstavljaju procese.
+//U ovoj metodi postavlja se zahtev raspoređivaču diska da izvrši UI operaciju na
+//određenoj stazi diska. Proces mora da sačeka da zahtev bude izvršen, pre nego
+//nastavi dalje izvršavanje.
 //
-// Metodu obradi_zahtev poziva nit koja predstavlja raspoređivač diska. Metoda je zadužena da obradi jedan zahtev iz skupa zahteva. Zahtev za obradu se iz skupa zahteva bira po SSTF principu. Obrada zahteva traje 300 ms. Rezultat metode je broj staze kojoj je disk pristupio pri obradi zahteva.
+// Metodu obradi_zahtev poziva nit koja predstavlja raspoređivač diska.
+//Metoda je zadužena da obradi jedan zahtev iz skupa zahteva. Zahtev za obradu se
+//iz skupa zahteva bira po SSTF principu. Obrada zahteva traje 300 ms.
+//Rezultat metode je broj staze kojoj je disk pristupio pri obradi zahteva.
 //
 
 #include <thread>

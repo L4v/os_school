@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1558935222 source:/home/stud/ra30-2017/_os/os_school/v12/disk_SSTF/main.cpp
+	<thread>
+	"os.h"
+
+1558937716 /home/stud/ra30-2017/_os/os_school/v12/disk_SSTF/os.h
+	<mutex>
+	<condition_variable>
+	<list>
+	"dijagnostika.h"
+
+1557382598 /home/stud/ra30-2017/_os/os_school/v12/disk_SSTF/dijagnostika.h
+	<iostream>
+	<mutex>
+

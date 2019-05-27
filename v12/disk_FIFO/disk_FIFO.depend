@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1558933754 source:/home/stud/ra30-2017/_os/os_school/v12/disk_FIFO/main.cpp
+	<thread>
+	"os.h"
+
+1558934883 /home/stud/ra30-2017/_os/os_school/v12/disk_FIFO/os.h
+	<mutex>
+	<condition_variable>
+	<vector>
+	<deque>
+	"dijagnostika.h"
+
+1557382598 /home/stud/ra30-2017/_os/os_school/v12/disk_FIFO/dijagnostika.h
+	<iostream>
+	<mutex>
+
