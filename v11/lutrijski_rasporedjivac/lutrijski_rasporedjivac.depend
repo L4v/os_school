@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1558430582 source:/home/hk-47/workspace/os/os_school/v11/lutrijski_rasporedjivac/cv_tag.cpp
+	"cv_tag.h"
+
+1558430582 /home/hk-47/workspace/os/os_school/v11/lutrijski_rasporedjivac/cv_tag.h
+	<thread>
+	<map>
+	<condition_variable>
+	<mutex>
+
