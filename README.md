@@ -8,6 +8,6 @@ Pogledati sledeci [link](http://www.acs.uns.ac.rs/sr/filebrowser/download/439225
 
 ## Skripta za komentare
 Pretvoriti komentare u main.cpp u vidu multi-line comment-a (dodati /* na
-pocetak i */ na kraj) i pokrenuti skriptu preko
-python comment.py
-Uneti putanju za main.cpp i putanju za izlazni fajl.
+pocetak i */ na kraj) i pokrenuti skriptu preko  
+`python comment.py`  
+Uneti relativnu ili apsolutnu putanju za main.cpp i za izlazni fajl.

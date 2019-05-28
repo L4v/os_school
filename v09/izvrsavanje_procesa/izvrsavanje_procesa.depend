@@ -12,3 +12,16 @@
 	<iostream>
 	<mutex>
 
+1558868323 source:/home/hk-47/workspace/os/os_school/v09/izvrsavanje_procesa/main.cpp
+	<thread>
+	"procesor.h"
+
+1558868323 /home/hk-47/workspace/os/os_school/v09/izvrsavanje_procesa/procesor.h
+	<condition_variable>
+	<mutex>
+	"dijagnostika.h"
+
+1557689586 /home/hk-47/workspace/os/os_school/v09/izvrsavanje_procesa/dijagnostika.h
+	<iostream>
+	<mutex>
+
