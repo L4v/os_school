@@ -3,7 +3,7 @@
 
 #include <condition_variable>
 #include <mutex>
-#include <deque>
+#include <vector>
 #include <algorithm>
 
 #include "dijagnostika.h"
@@ -20,26 +20,26 @@ private:
 
     Dijagnostika& dijagnostika;
     mutex m;
-    condition_variable cv_proc, cv_rasp;
-    deque<st_proces*> procesi;
+    condition_variable cv_rasp;
+    vector<st_proces*> procesi;
     bool rasporedjuje;
-    bool cpu_zauzet;
-
-    void dodaj_u_red(st_proces* p, unique_lock<mutex>& lock){
-        auto it = find(procesi.begin(), procesi.end(), p);
-        if(it == procesi.end())
-            procesi.push_back(p);
-        p->cv.wait(lock);
-    }
+    bool zavrsi;
+    int aktivan_proces;
 
 public:
     Racunar(Dijagnostika& d) : dijagnostika(d) {
-        cpu_zauzet = false;
+        aktivan_proces = -1;
         rasporedjuje = false;
+        zavrsi=false;
     }
 
     Dijagnostika& getDijagnostika() {
         return dijagnostika;
+    }
+
+    void ugasi(){
+        zavrsi = true;
+        cv_rasp.notify_one();
     }
 
     // Metoda koju poziva nit koja simulira izvršenje procesa, kako bi se proces izvršio
@@ -52,22 +52,32 @@ public:
     void izvrsi(int id_procesa, int trajanje) {
         unique_lock<mutex> lock(m);
 
-        while(cpu_zauzet || rasporedjuje){
+
+        st_proces* p = new st_proces(id_procesa, trajanje);
+        procesi.push_back(p);
+        aktivan_proces = aktivan_proces == -1 ? id_procesa : aktivan_proces;
+
+
+        while(aktivan_proces != id_procesa){
             dijagnostika.proces_ceka(id_procesa);
-            st_proces* p = new st_proces(id_procesa, trajanje);
-            dodaj_u_red(p, lock);
-            //delete p;
-            cv_proc.wait(lock);
+            p->cv.wait(lock);
         }
-        cpu_zauzet = true;
 
-        dijagnostika.proces_kreiran(id_procesa, trajanje);
+        aktivan_proces = id_procesa;
 
+        lock.unlock();
         this_thread::sleep_for(chrono::milliseconds(trajanje*100));
+        lock.lock();
+
+        for(auto it = procesi.begin(); it != procesi.end(); it++)
+            if(*it == p){
+                procesi.erase(it);
+                delete p;
+                break;
+            }
 
         dijagnostika.proces_zavrsio(id_procesa);
 
-        cpu_zauzet = false;
         rasporedjuje = true;
         cv_rasp.notify_one();
     }
@@ -78,29 +88,30 @@ public:
     // Nakon što se raspoređivač aktivirao i izabrao sledeći proces, potrebno je pozvati dijagnostika.rasporedjivac_izvrsio.
     void rasporedjuj() {
         unique_lock<mutex> lock(m);
+        while(!zavrsi){
 
-        while(procesi.empty()){
-            dijagnostika.rasporedjivac_ceka();
-            cv_rasp.wait(lock);
-        }
-
-        rasporedjuje = false;
-
-        st_proces *tmp = new st_proces(procesi.front()->id_procesa, procesi.front()->trajanje);
-        auto tmp_1 = procesi.begin();
-        int min_vreme = procesi.front()->trajanje;
-        for(auto it = procesi.begin(); it != procesi.end(); it++){
-            if((*it)->trajanje < min_vreme){
-                min_vreme = (*it)->trajanje;
-                tmp_1 = it;
+            while(!rasporedjuje){
+                dijagnostika.rasporedjivac_ceka();
+                cv_rasp.wait(lock);
             }
-        }
-        procesi.erase(tmp_1);
-        dijagnostika.rasporedjivac_izvrsio(tmp->id_procesa);
-        tmp->cv.notify_one();
-        // NNE RADIIIIII AAAAAAAAAAAAA
+            if(zavrsi)return;
+            if(procesi.size() > 0){
+                auto tmp = procesi.begin();
+                for(auto it = procesi.begin(); it != procesi.end(); it++){
+                    if((*it)->trajanje < (*tmp)->trajanje){
+                        tmp = it;
+                    }
+                }
+                aktivan_proces = (*tmp)->id_procesa;
+                (*tmp)->cv.notify_one();
+            }else{
+                aktivan_proces = -1;
+            }
+            rasporedjuje = false;
+            dijagnostika.rasporedjivac_izvrsio(aktivan_proces);
 
-    }
+        }
+        }
 };
 
 #endif // RACUNAR_H_INCLUDED

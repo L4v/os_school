@@ -49,6 +49,8 @@ void testirajSve() {
     }
     for (int i = 0; i < 7; i++)
         procesi[i].join();
+
+    r.ugasi();
 }
 
 int main() {

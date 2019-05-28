@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1559037249 source:/home/hk-47/workspace/os/os_school/v11/najkraci_sledeci/main.cpp
+	<thread>
+	"racunar.h"
+
+1559037342 /home/hk-47/workspace/os/os_school/v11/najkraci_sledeci/racunar.h
+	<condition_variable>
+	<mutex>
+	<vector>
+	<algorithm>
+	"dijagnostika.h"
+
+1558430582 /home/hk-47/workspace/os/os_school/v11/najkraci_sledeci/dijagnostika.h
+	<iostream>
+	<mutex>
+	<condition_variable>
+
