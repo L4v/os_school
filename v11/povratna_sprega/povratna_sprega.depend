@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1558430582 source:/home/hk-47/workspace/os/os_school/v11/povratna_sprega/cv_hrono.cpp
+	"cv_hrono.h"
+
+1558430582 /home/hk-47/workspace/os/os_school/v11/povratna_sprega/cv_hrono.h
+	<deque>
+	<thread>
+	<condition_variable>
+	<mutex>
+
+1559038131 source:/home/hk-47/workspace/os/os_school/v11/povratna_sprega/main.cpp
+	<thread>
+	"rasporedjivac.h"
+
+1559039247 /home/hk-47/workspace/os/os_school/v11/povratna_sprega/rasporedjivac.h
+	<condition_variable>
+	<mutex>
+	<vector>
+	"dijagnostika.h"
+	"red.h"
+
+1558430582 /home/hk-47/workspace/os/os_school/v11/povratna_sprega/dijagnostika.h
+	<iostream>
+	<mutex>
+	<condition_variable>
+
+1558430582 /home/hk-47/workspace/os/os_school/v11/povratna_sprega/red.h
+	<deque>
+	<algorithm>
+	"cv_hrono.h"
+
